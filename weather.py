@@ -73,8 +73,9 @@ def get_weather(city):
         data = response.json()
         return {
             "temperature": data["current_weather"]["temperature"],
-            "windspeed": data["current_weather"]["windspeed"]
-            * 3.6,  # Переводим из м/с в км/ч
+            "windspeed": round(
+                data["current_weather"]["windspeed"] / 3.6, 1
+            ),  # Переводим из км/ч в м/c
         }, None
     except requests.exceptions.RequestException as e:
         return None, f"Request error: {e}, Response text: {response.text}"
