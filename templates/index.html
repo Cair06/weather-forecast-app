@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Weather App</title>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    </head>
+    <body>
+        <h1>Weather Forecast</h1>
+        <form method="POST">
+            <input
+                type="text"
+                id="city"
+                name="city"
+                placeholder="Enter city name"
+                value="{{ last_city if last_city else '' }}"
+                required
+            />
+            <button type="submit">Get Weather</button>
+        </form>
+        {% if error %}
+        <p style="color: red">{{ error }}</p>
+        {% endif %} {% if weather %}
+        <h2>Weather in {{ last_city }}</h2>
+        <p>Temperature: {{ weather['temperature'] }}°C</p>
+        <p>Wind Speed: {{ weather['windspeed'] }} км/ч</p>
+        {% endif %}
+        <h2>Search History</h2>
+        <ul>
+            {% for city, count in searches %}
+            <li>{{ city }}: {{ count }} times</li>
+            {% endfor %}
+        </ul>
+        <script>
+            $(function () {
+                $("#city").autocomplete({
+                    source: function (request, response) {
+                        $.ajax({
+                            url: "https://geocoding-api.open-meteo.com/v1/search",
+                            dataType: "json",
+                            data: {
+                                name: request.term,
+                            },
+                            success: function (data) {
+                                response(
+                                    data.results.map(function (city) {
+                                        return city.name;
+                                    })
+                                );
+                            },
+                        });
+                    },
+                    minLength: 2,
+                });
+            });
+        </script>
+    </body>
+</html>
