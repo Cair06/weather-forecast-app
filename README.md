@@ -26,7 +26,7 @@
 1. Клонируйте репозиторий и перейдите в директорию проекта:
 
     ```bash
-    git clone https://github.com/yourusername/weather-forecast-app.git
+    git clone https://github.com/Cair06/weather-forecast-app.git
     cd weather-forecast-app
     ```
 
@@ -62,7 +62,7 @@
 1. Клонируйте репозиторий и перейдите в директорию проекта:
 
     ```bash
-    git clone https://github.com/yourusername/weather-forecast-app.git
+    git clone https://github.com/Cair06/weather-forecast-app.git
     cd weather-forecast-app
     ```
 
